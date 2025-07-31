@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: healthforum-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: healthforum-frontend
+  template:
+    metadata:
+      labels:
+        app: healthforum-frontend
+    spec:
+      containers:
+        - name: healthforum-frontend
+          image: anitajose1727/healthforum-frontend:latest
+          ports:
+            - containerPort: 80

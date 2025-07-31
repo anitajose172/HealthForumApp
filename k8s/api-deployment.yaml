@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: healthforum-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: healthforum-api
+  template:
+    metadata:
+      labels:
+        app: healthforum-api
+    spec:
+      containers:
+        - name: healthforum-api
+          image: anitajose1727/healthforum-api:latest
+          ports:
+            - containerPort: 80
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: "Development"

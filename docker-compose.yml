@@ -1,0 +1,50 @@
+﻿services:
+  localstack:
+    image: localstack/localstack:latest
+    container_name: localstack_main
+    ports:
+      - "4566:4566"           # LocalStack main edge port
+      - "4510-4559:4510-4559" # optional service ports
+    environment:
+      - SERVICES=dynamodb
+      - DEFAULT_REGION=us-east-1
+      - EAGER_SERVICE_LOADING=1
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    volumes:
+      - localstack-data:/var/lib/localstack
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - forum-network
+
+  api:
+    build:
+      context: ./HealthForumApi
+      dockerfile: Dockerfile
+    container_name: healthforum_api
+    ports:
+      - "5000:80"                    # Map host 5000 → container 80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - localstack
+    networks:
+      - forum-network
+
+  frontend:
+    build:
+      context: ./health-forum-ui
+      dockerfile: Dockerfile
+    container_name: healthforum_frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - api
+    networks:
+      - forum-network
+
+networks:
+  forum-network:
+    driver: bridge
+
+volumes:
+  localstack-data:

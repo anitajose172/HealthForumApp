@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "/nZQIyDlmB64LZJJmwMn4VXpy2q+M41kB9tyIdA0mSQ=",
+  "Source": "HealthForumApi",
+  "BasePath": "_content/HealthForumApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
